@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>新規会員登録 | メディスポット</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --seeker:   #2a7bbf;
+      --employer: #2e9e6b;
+      --text:     #2c3e50;
+      --muted:    #7f8c8d;
+      --border:   #dde6f0;
+      --bg:       #f4f8fc;
+      --white:    #ffffff;
+    }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── HEADER ── */
+    #header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .site-header .inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 64px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem; font-weight: 700; color: #1a3a5c;
+    }
+    .brand .mark { font-size: 1.4rem; }
+    nav { display: flex; gap: 1.75rem; align-items: center; }
+    nav a {
+      font-size: 0.85rem; font-weight: 500; color: #556;
+      padding: 0.3rem 0; border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--seeker); border-bottom-color: var(--seeker); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(160deg, #eaf3fb 0%, #e6f5ef 100%);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.7rem; font-weight: 700; color: #1a3a5c;
+      margin-bottom: 0.4rem;
+    }
+    .page-lead { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── CONTAINER NARROW ── */
+    .container.narrow {
+      max-width: 560px; margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ── ROLE SELECT ── */
+    .role-select {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.85rem; margin-bottom: 1.75rem;
+    }
+    .role-option {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1rem;
+      cursor: pointer; text-align: center;
+      transition: all 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    }
+    .role-option:hover { border-color: var(--seeker); box-shadow: 0 4px 14px rgba(42,123,191,0.1); }
+    .role-option.selected.seeker {
+      border-color: var(--seeker);
+      background: #eaf3fb;
+      box-shadow: 0 4px 14px rgba(42,123,191,0.15);
+    }
+    .role-option.selected.employer {
+      border-color: var(--employer);
+      background: #e6f5ee;
+      box-shadow: 0 4px 14px rgba(46,158,107,0.15);
+    }
+    .role-option .icon { font-size: 2rem; }
+    .role-option h3 { font-size: 0.92rem; font-weight: 700; color: #1a3a5c; }
+    .role-option p  { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FORM CARD ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+
+    /* ── FORM FIELDS ── */
+    .field { margin-bottom: 1.25rem; }
+    .field label {
+      display: block; font-size: 0.84rem;
+      font-weight: 600; color: #1a3a5c;
+      margin-bottom: 0.4rem;
+    }
+    .field label .req {
+      color: #e74c3c; font-size: 0.75rem;
+      margin-left: 0.3rem; font-weight: 700;
+    }
+    .field input,
+    .field select {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 0.88rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text); background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--seeker);
+      box-shadow: 0 0 0 3px rgba(42,123,191,0.1);
+    }
+    .field input::placeholder { color: #b0bec5; }
+
+    /* ── HINT ── */
+    .hint {
+      font-size: 0.75rem; color: var(--muted);
+      margin-top: 0.4rem; line-height: 1.6;
+    }
+
+    /* ── FORM ERROR ── */
+    .form-error {
+      display: none; background: #fdf0f0;
+      border: 1px solid #f5c6c6; border-radius: 8px;
+      padding: 0.7rem 1rem; font-size: 0.83rem;
+      color: #c0392b; margin-bottom: 1.25rem;
+    }
+    .form-error.show { display: block; }
+
+    /* ── SUBMIT BTN ── */
+    .btn { display: inline-block; padding: 0.85rem 1.75rem; border-radius: 28px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; border: none; font-family: 'Noto Sans JP', sans-serif; }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn.block { display: block; width: 100%; text-align: center; border-radius: 10px; padding: 0.9rem; font-size: 0.95rem; }
+    .btn.block:not(.green) { background: var(--seeker); color: #fff; box-shadow: 0 4px 14px rgba(42,123,191,0.28); }
+    .btn.block.green { background: var(--employer); color: #fff; box-shadow: 0 4px 14px rgba(46,158,107,0.28); }
+
+    /* ── LOGIN LINK ── */
+    .login-link {
+      text-align: center; font-size: 0.82rem;
+      color: var(--muted); margin-top: 1.25rem;
+    }
+    .login-link a { color: var(--seeker); font-weight: 600; }
+
+    /* ── FOOTER ── */
+    #footer { background: #0f2137; }
+    .site-footer {
+      max-width: 960px; margin: 0 auto;
+      padding: 1.5rem; text-align: center;
+      font-size: 0.78rem; color: #5a7a90;
+    }
+    .site-footer a { color: #5bb8d4; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="index.html">
+        <span class="mark">🏥</span>
+        メディスポット
+      </a>
+      <nav>
+        <a href="index.html">サービス紹介</a>
+        <a href="register.html" class="active">新規会員登録</a>
+        <a href="login.html">ログイン</a>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="page-title">新規会員登録</h1>
+  <p class="page-lead">登録種別を選択して、必要事項を入力してください。</p>
+</div>
+
+<!-- MAIN -->
+<div class="container narrow">
+
+  <!-- ROLE SELECT -->
+  <div class="role-select">
+    <button type="button" class="role-option seeker selected" id="optSeeker" onclick="selectRole('seeker')">
+      <div class="icon">👤 🩺</div>
+      <h3>求職者として登録</h3>
+      <p>医療資格者（看護師・検査技師・リハビリ職 など）</p>
+    </button>
+    <button type="button" class="role-option employer" id="optEmployer" onclick="selectRole('employer')">
+      <div class="icon">🏥</div>
+      <h3>求人者として登録</h3>
+      <p>医療機関（病院・クリニック・薬局 など）</p>
+    </button>
+  </div>
+
+  <!-- FORM -->
+  <form class="card" id="regForm" onsubmit="return submitReg(event)">
+    <p class="form-error" id="err"></p>
+
+    <!-- お名前 (共通) -->
+    <div class="field">
+      <label>
+        お名前（ご担当者名）
+        <span class="req">必須</span>
+      </label>
+      <input type="text" id="fName" placeholder="例）佐藤 花子" required>
+    </div>
+
+    <!-- 医療機関フィールド (employer only) -->
+    <div id="employerFields" style="display:none;">
+      <div class="field">
+        <label>
+          医療機関名
+          <span class="req">必須</span>
+        </label>
+        <input type="text" id="fOrgName" placeholder="例）ブランチ総合クリニック">
+      </div>
+      <div class="field">
+        <label>施設区分</label>
+        <select id="fFacility">
+          <option>病院</option>
+          <option>クリニック（無床）</option>
+          <option>クリニック（有床）</option>
+          <option>調剤薬局</option>
+          <option>介護・福祉施設</option>
+          <option>健診センター</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>所在地</label>
+        <input type="text" id="fAddress" placeholder="例）東京都世田谷区〇〇1-2-3">
+      </div>
+    </div>
+
+    <!-- 求職者フィールド (seeker only) -->
+    <div id="seekerFields">
+      <div class="field">
+        <label>
+          保有資格（職種）
+          <span class="req">必須</span>
+        </label>
+        <select id="fCategory">
+          <!-- JS で CATEGORIES から生成 -->
+        </select>
+      </div>
+    </div>
+
+    <!-- メールアドレス (共通) -->
+    <div class="field">
+      <label>
+        メールアドレス
+        <span class="req">必須</span>
+      </label>
+      <input type="email" id="fEmail" placeholder="例）example@example.com" required>
+    </div>
+
+    <!-- パスワード (共通) -->
+    <div class="field">
+      <label>
+        パスワード
+        <span class="req">必須</span>
+      </label>
+      <input type="password" id="fPassword" minlength="8" placeholder="8文字以上" required>
+      <p class="hint">※ プロトタイプのためパスワードは平文でブラウザ内に保存されます。実際のパスワードを使用しないでください。</p>
+    </div>
+
+    <button type="submit" class="btn block" id="submitBtn">この内容で登録する</button>
+
+    <p class="login-link">
+      すでにアカウントをお持ちの方は
+      <a href="login.html">ログイン</a>
+    </p>
+  </form>
+
+</div><!-- /container narrow -->
+
+<!-- FOOTER -->
+<div id="footer">
+  <footer class="site-footer">
+    医療特化型広告マッチングシステム プロトタイプ V1 ／
+    <a href="#" onclick="resetDB();return false;">デモデータを初期化</a>
+  </footer>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+  renderHeader('register.html');
+  renderFooter();
+
+  let role = qs('role') === 'employer' ? 'employer' : 'seeker';
+
+  document.getElementById('fCategory').innerHTML =
+    CATEGORIES.map(c => `<option>${c}</option>`).join('');
+
+  function selectRole(r) {
+    role = r;
+    document.getElementById('optSeeker').classList.toggle('selected', r === 'seeker');
+    document.getElementById('optEmployer').classList.toggle('selected', r === 'employer');
+    document.getElementById('seekerFields').style.display  = r === 'seeker'   ? '' : 'none';
+    document.getElementById('employerFields').style.display = r === 'employer' ? '' : 'none';
+    const btn = document.getElementById('submitBtn');
+    btn.className = 'btn block' + (r === 'employer' ? ' green' : '');
+  }
+  selectRole(role);
+
+  function submitReg(e) {
+    e.preventDefault();
+    const err = document.getElementById('err');
+    err.classList.remove('show');
+
+    const db    = loadDB();
+    const email = document.getElementById('fEmail').value.trim();
+    if (db.users.some(u => u.email === email)) {
+      err.textContent = 'このメールアドレスは既に登録されています。';
+      err.classList.add('show');
+      return false;
+    }
+    if (role === 'employer' && !document.getElementById('fOrgName').value.trim()) {
+      err.textContent = '医療機関名を入力してください。';
+      err.classList.add('show');
+      return false;
+    }
+
+    const user = {
+      id: uid(),
+      role,
+      name:     document.getElementById('fName').value.trim(),
+      email,
+      password: document.getElementById('fPassword').value,
+    };
+    if (role === 'seeker') {
+      user.profile = {
+        category: document.getElementById('fCategory').value,
+        license: '', birthdate: '', experience: '',
+        skills: [], desiredType: '', zipcode: '',
+        residence: '', pr: ''
+      };
+    } else {
+      user.org = {
+        name:     document.getElementById('fOrgName').value.trim(),
+        facility: document.getElementById('fFacility').value,
+        address:  document.getElementById('fAddress').value.trim(),
+        tel: '', intro: ''
+      };
+    }
+    db.users.push(user);
+    saveDB(db);
+    localStorage.setItem(SESSION_KEY, user.id);
+    location.href = role === 'seeker' ? 'seeker-home.html' : 'employer-home.html';
+    return false;
+  }
+</script>
+</body>
+</html>

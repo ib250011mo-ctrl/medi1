@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ログイン | メディスポット</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --seeker:   #2a7bbf;
+      --employer: #2e9e6b;
+      --text:     #2c3e50;
+      --muted:    #7f8c8d;
+      --border:   #dde6f0;
+      --bg:       #f4f8fc;
+      --white:    #ffffff;
+    }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── HEADER ── */
+    #header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .site-header .inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 64px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem; font-weight: 700; color: #1a3a5c;
+    }
+    .brand .mark { font-size: 1.4rem; }
+    nav { display: flex; gap: 1.75rem; align-items: center; }
+    nav a {
+      font-size: 0.85rem; font-weight: 500; color: #556;
+      padding: 0.3rem 0; border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--seeker); border-bottom-color: var(--seeker); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(160deg, #eaf3fb 0%, #e6f5ef 100%);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.7rem; font-weight: 700; color: #1a3a5c;
+      margin-bottom: 0.4rem;
+    }
+    .page-lead { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── CONTAINER NARROW ── */
+    .container.narrow {
+      max-width: 480px; margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── FORM FIELDS ── */
+    .field { margin-bottom: 1.25rem; }
+    .field label {
+      display: block; font-size: 0.84rem;
+      font-weight: 600; color: #1a3a5c;
+      margin-bottom: 0.4rem;
+    }
+    .field input {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 0.88rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text); background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--seeker);
+      box-shadow: 0 0 0 3px rgba(42,123,191,0.1);
+    }
+
+    /* ── FORM ERROR ── */
+    .form-error {
+      display: none; background: #fdf0f0;
+      border: 1px solid #f5c6c6; border-radius: 8px;
+      padding: 0.7rem 1rem; font-size: 0.83rem;
+      color: #c0392b; margin-bottom: 1.25rem;
+    }
+    .form-error.show { display: block; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.75rem; border-radius: 28px;
+      font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; border: none;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn.block {
+      display: block; width: 100%;
+      text-align: center; border-radius: 10px;
+      padding: 0.9rem; font-size: 0.95rem;
+      background: var(--seeker); color: #fff;
+      box-shadow: 0 4px 14px rgba(42,123,191,0.28);
+    }
+    .btn.outline {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      color: var(--text); font-size: 0.82rem;
+      padding: 0.65rem 1rem; border-radius: 8px;
+      font-weight: 600; width: 100%;
+      display: block; text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn.outline:hover {
+      border-color: var(--seeker);
+      background: #eaf3fb; color: var(--seeker);
+      transform: none;
+    }
+
+    /* ── REGISTER LINK ── */
+    .register-link {
+      text-align: center; font-size: 0.82rem;
+      color: var(--muted); margin-top: 1.25rem;
+    }
+    .register-link a { color: var(--seeker); font-weight: 600; }
+
+    /* ── DEMO CARD ── */
+    .demo-card-title {
+      font-size: 0.9rem; font-weight: 700;
+      color: #1a3a5c; margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .demo-card-desc {
+      font-size: 0.78rem; color: var(--muted);
+      margin-bottom: 1rem; line-height: 1.6;
+    }
+    .grid-2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    /* ── FOOTER ── */
+    #footer { background: #0f2137; }
+    .site-footer {
+      max-width: 960px; margin: 0 auto;
+      padding: 1.5rem; text-align: center;
+      font-size: 0.78rem; color: #5a7a90;
+    }
+    .site-footer a { color: #5bb8d4; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="index.html">
+        <span class="mark">🏥</span>
+        メディスポット
+      </a>
+      <nav>
+        <a href="index.html">サービス紹介</a>
+        <a href="register.html">新規会員登録</a>
+        <a href="login.html" class="active">ログイン</a>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="page-title">ログイン</h1>
+  <p class="page-lead">ログイン後、権限（求職者／求人者）に応じたマイページへ移動します。</p>
+</div>
+
+<!-- MAIN -->
+<div class="container narrow">
+
+  <!-- LOGIN FORM -->
+  <form class="card" onsubmit="return doLogin(event)">
+    <p class="form-error" id="err">メールアドレスまたはパスワードが正しくありません。</p>
+
+    <div class="field">
+      <label>メールアドレス</label>
+      <input type="email" id="fEmail" required autocomplete="username">
+    </div>
+
+    <div class="field">
+      <label>パスワード</label>
+      <input type="password" id="fPassword" required autocomplete="current-password">
+    </div>
+
+    <button type="submit" class="btn block">ログイン</button>
+
+    <p class="register-link">
+      アカウントをお持ちでない方は
+      <a href="register.html">新規会員登録</a>
+    </p>
+  </form>
+
+  <!-- DEMO LOGIN CARD -->
+  <div class="card">
+    <div class="demo-card-title">🔑 デモアカウントでログイン</div>
+    <p class="demo-card-desc">
+      プロトタイプ確認用のアカウントです。ワンクリックでログインできます。
+    </p>
+    <div class="grid-2">
+      <button class="btn outline" onclick="demoLogin('seeker@example.com')">
+        👤 求職者<br>
+        <span style="font-size:0.75rem;font-weight:400;color:var(--muted)">佐藤 花子／看護師</span>
+      </button>
+      <button class="btn outline" onclick="demoLogin('employer@example.com')">
+        🏥 求人者<br>
+        <span style="font-size:0.75rem;font-weight:400;color:var(--muted)">ブランチ総合クリニック</span>
+      </button>
+    </div>
+  </div>
+
+</div><!-- /container narrow -->
+
+<!-- FOOTER -->
+<div id="footer">
+  <footer class="site-footer">
+    医療特化型広告マッチングシステム プロトタイプ V1 ／
+    <a href="#" onclick="resetDB();return false;">デモデータを初期化</a>
+  </footer>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+  renderHeader('login.html');
+  renderFooter();
+
+  function redirect(user) {
+    location.href = user.role === 'seeker' ? 'seeker-home.html' : 'employer-home.html';
+  }
+
+  function doLogin(e) {
+    e.preventDefault();
+    const user = login(
+      document.getElementById('fEmail').value.trim(),
+      document.getElementById('fPassword').value
+    );
+    if (user) {
+      redirect(user);
+    } else {
+      document.getElementById('err').classList.add('show');
+    }
+    return false;
+  }
+
+  function demoLogin(email) {
+    const user = login(email, 'demo1234');
+    if (user) redirect(user);
+  }
+</script>
+</body>
+</html>

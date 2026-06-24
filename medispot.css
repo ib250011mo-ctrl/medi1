@@ -1,0 +1,156 @@
+/* ============================================================
+   メディスポット — Bảng màu (sửa màu ở đây)
+   ============================================================ */
+:root{
+  --teal-light: #9DD5D0;   /* xanh ngọc nhạt (nền hero, nền features) */
+  --teal:       #3E9690;   /* xanh ngọc đậm (nút, dải tin cậy, CTA) */
+  --navy:       #1F3A5F;   /* xanh navy (chữ tiêu đề) */
+  --paper:      #F4F8F7;   /* nền trang */
+  --white:      #FFFFFF;
+  --text-muted: #5a6b80;   /* chữ phụ */
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--paper);
+  font-family:'Noto Sans JP', sans-serif;
+  color:var(--navy);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ max-width:100%; display:block; }
+::selection{ background:var(--teal-light); color:var(--navy); }
+
+/* Khung nội dung giữa trang */
+.wrap{ max-width:1200px; margin:0 auto; padding:0 40px; }
+
+/* Tiêu đề dùng font bo tròn */
+h1,h2,h3,h4,.brand-name{ font-family:'Zen Maru Gothic', sans-serif; }
+
+/* ============================================================
+   LOGO (dấu cộng)
+   ============================================================ */
+.logo-mark{ position:relative; width:34px; height:34px; display:inline-block; flex:none; }
+.logo-mark .logo-v{ position:absolute; left:10px; top:0;  width:14px; height:34px; background:var(--teal);       border-radius:5px; }
+.logo-mark .logo-h{ position:absolute; left:0;  top:10px; width:34px; height:14px; background:var(--teal-light); border-radius:5px; }
+.logo-mark.big{ width:54px; height:54px; margin-bottom:36px; }
+.logo-mark.big .logo-v{ left:16px; width:22px; height:54px; }
+.logo-mark.big .logo-h{ top:16px; width:54px; height:22px; background:#fff; }
+.footer-logo .logo-v{ background:var(--teal-light); }
+.footer-logo .logo-h{ background:#fff; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(244,248,247,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(31,58,95,0.08);
+}
+.header-inner{ max-width:1200px; margin:0 auto; padding:16px 40px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand-name{ font-weight:700; font-size:20px; color:var(--navy); }
+.brand-name.light{ color:#fff; font-size:18px; }
+.main-nav{ display:flex; align-items:center; gap:8px; }
+.main-nav a{ font-size:15px; font-weight:500; text-decoration:none; color:var(--navy); padding:8px 14px; border-radius:10px; }
+.main-nav a.active{ font-weight:700; background:rgba(157,213,208,0.35); }
+.main-nav a.nav-btn{ font-weight:700; color:#fff; background:var(--teal); padding:9px 20px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ display:grid; grid-template-columns:1fr 1fr; min-height:560px; }
+.hero-copy{ background:var(--teal-light); display:flex; flex-direction:column; justify-content:center; padding:72px 64px; }
+.hero-copy h1{ font-weight:700; font-size:52px; line-height:1.18; color:var(--navy); letter-spacing:-0.5px; }
+.hero-copy p{ font-size:18px; line-height:1.6; color:#27496b; margin-top:22px; max-width:440px; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:36px; }
+.hero-photo{ position:relative; background:#E8EDEC; }
+.hero-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+/* Nút bấm */
+.btn{ display:inline-block; font-weight:700; font-size:16px; text-decoration:none; padding:16px 30px; border-radius:14px; }
+.btn-primary{ color:#fff; background:var(--teal); box-shadow:0 8px 20px rgba(62,150,144,0.28); }
+.btn-soft{ color:var(--navy); background:rgba(255,255,255,0.7); }
+.btn-white{ color:var(--navy); background:#fff; padding:16px 34px; }
+.btn-outline{ color:#fff; background:rgba(255,255,255,0.16); border:1.5px solid rgba(255,255,255,0.5); padding:14.5px 34px; }
+
+/* ============================================================
+   TRUST STRIP
+   ============================================================ */
+.trust-strip{ background:var(--teal); color:#fff; display:flex; flex-wrap:wrap; justify-content:center; gap:14px 40px; padding:18px 40px; }
+.trust-strip span{ font-size:14px; font-weight:500; letter-spacing:0.02em; }
+
+/* Ghi chú prototype */
+.proto-note{ background:#FFF7E8; border:1px solid #F2D89B; border-radius:12px; padding:14px 20px; font-size:14px; color:#8a6d2f; margin-top:32px; }
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.features{ background:var(--teal-light); margin-top:48px; padding:72px 0; }
+.eyebrow{ font-size:14px; font-weight:700; letter-spacing:0.22em; color:#2c5a55; margin-bottom:12px; }
+.section-heading{ font-weight:700; font-size:30px; color:var(--navy); max-width:760px; line-height:1.4; }
+.feature-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px; }
+.card{ background:#fff; border-radius:22px; box-shadow:0 14px 30px rgba(31,58,95,0.07); }
+.feature{ padding:40px 32px; text-align:center; }
+.feature-icon{ font-size:40px; line-height:1; margin-bottom:20px; }
+.feature-img{ width:64px; height:64px; margin:0 auto 20px; object-fit:contain; } /* dùng nếu thay icon bằng ảnh */
+.feature h3{ font-weight:700; font-size:19px; color:var(--navy); margin-bottom:12px; }
+.feature p{ font-size:14.5px; line-height:1.7; color:var(--text-muted); }
+
+/* ============================================================
+   FLOW
+   ============================================================ */
+.flow{ padding:80px 40px 24px; }
+.section-title{ font-weight:700; font-size:36px; color:var(--navy); text-align:center; margin-bottom:48px; }
+.flow-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.flow .card{ padding:36px; }
+.flow-head{ font-weight:700; font-size:20px; color:var(--navy); margin-bottom:28px; display:flex; align-items:center; gap:10px; }
+.flow-badge{ background:rgba(157,213,208,0.5); width:38px; height:38px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; font-size:18px; }
+.steps{ display:flex; flex-direction:column; gap:22px; }
+.step{ display:flex; gap:18px; }
+.step .num{ flex:none; width:38px; height:38px; border-radius:50%; background:var(--teal); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:17px; }
+.step .num.num-alt{ background:var(--teal-light); color:var(--navy); }
+.step h4{ font-size:16px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.step p{ font-size:14px; color:var(--text-muted); }
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta-box{ background:var(--teal); border-radius:28px; padding:64px 40px; text-align:center; color:#fff; margin-top:64px; }
+.cta-box h3{ font-weight:700; font-size:32px; margin-bottom:12px; }
+.cta-box p{ font-size:17px; color:rgba(255,255,255,0.88); margin-bottom:32px; }
+.cta-actions{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer{ margin-top:72px; background:var(--navy); color:#fff; }
+.footer-inner{ max-width:1200px; margin:0 auto; padding:48px 40px; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between; }
+.footer-text{ font-size:13px; color:rgba(255,255,255,0.7); text-align:right; }
+.footer-text a{ color:var(--teal-light); text-decoration:none; }
+
+/* ============================================================
+   RESPONSIVE — điện thoại / máy tính bảng (màn hình ≤ 860px)
+   ============================================================ */
+@media (max-width:860px){
+  .wrap, .flow{ padding-left:20px; padding-right:20px; }
+  .header-inner{ padding:14px 20px; flex-wrap:wrap; gap:10px; }
+  .main-nav{ gap:6px; }
+  .main-nav a{ font-size:13px; padding:7px 11px; }
+
+  .hero{ grid-template-columns:1fr; min-height:0; }
+  .hero-copy{ padding:48px 26px; }
+  .hero-copy h1{ font-size:34px; }
+  .hero-copy p{ font-size:16px; }
+  .hero-photo{ min-height:320px; }
+
+  .trust-strip{ justify-content:flex-start; gap:10px 22px; }
+  .feature-grid{ grid-template-columns:1fr; }
+  .flow-grid{ grid-template-columns:1fr; }
+  .section-title{ font-size:28px; }
+  .cta-box{ padding:44px 24px; }
+  .cta-box h3{ font-size:26px; }
+  .footer-inner{ justify-content:center; text-align:center; }
+  .footer-text{ text-align:center; }
+}

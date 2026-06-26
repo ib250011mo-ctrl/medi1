@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>求職者の方へ | メディスポット</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="medispot.css" rel="stylesheet">
+  <style>
+    .seeker-hero { display:grid; grid-template-columns:1fr 1fr; min-height:520px; }
+    .seeker-hero-copy { background:var(--teal-light); display:flex; flex-direction:column; justify-content:center; padding:72px 64px; }
+    .seeker-hero-copy .badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.6); color:var(--navy); font-size:13px; font-weight:700; letter-spacing:0.06em; padding:6px 14px; border-radius:20px; margin-bottom:24px; width:fit-content; }
+    .seeker-hero-copy h1 { font-weight:900; font-size:46px; line-height:1.2; color:var(--navy); }
+    .seeker-hero-copy h1 em { font-style:normal; color:var(--teal); display:block; }
+    .seeker-hero-copy p { font-size:16px; line-height:1.75; color:#27496b; margin-top:20px; max-width:400px; }
+    .seeker-hero-photo { background:#dceeed; position:relative; overflow:hidden; }
+    .seeker-hero-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .seeker-hero-photo .photo-placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; color:#7baaa6; }
+    .seeker-hero-photo .photo-placeholder .icon { font-size:80px; line-height:1; }
+    .seeker-hero-photo .photo-placeholder p { font-size:14px; font-weight:500; }
+    .free-strip { background:var(--navy); color:#fff; text-align:center; padding:16px 40px; font-size:15px; font-weight:700; letter-spacing:0.04em; }
+    .free-strip span { color:var(--teal-light); }
+    .benefits { padding:80px 0; }
+    .benefits-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+    .benefit-card { background:#fff; border-radius:22px; padding:36px 28px; box-shadow:0 10px 30px rgba(31,58,95,0.07); border-top:4px solid var(--teal); }
+    .benefit-card .num { font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; color:var(--teal); letter-spacing:0.1em; margin-bottom:12px; }
+    .benefit-card .icon { font-size:36px; margin-bottom:16px; }
+    .benefit-card h3 { font-size:18px; font-weight:700; color:var(--navy); margin-bottom:10px; line-height:1.4; }
+    .benefit-card p { font-size:14px; line-height:1.75; color:var(--text-muted); }
+    .qualifications { background:var(--teal-light); padding:72px 0; }
+    .qual-list { display:flex; flex-wrap:wrap; gap:12px; margin-top:36px; }
+    .qual-chip { background:#fff; border-radius:100px; padding:10px 22px; font-size:15px; font-weight:700; color:var(--navy); display:flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(31,58,95,0.08); }
+    .qual-chip .dot { width:8px; height:8px; border-radius:50%; background:var(--teal); flex:none; }
+    .steps-section { padding:80px 0; }
+    .steps-list { display:flex; flex-direction:column; gap:0; margin-top:48px; max-width:680px; margin-left:auto; margin-right:auto; }
+    .step-item { display:flex; gap:28px; position:relative; }
+    .step-item:not(:last-child)::after { content:''; position:absolute; left:23px; top:52px; bottom:-12px; width:2px; background:var(--teal-light); }
+    .step-left { display:flex; flex-direction:column; align-items:center; flex:none; }
+    .step-circle { width:48px; height:48px; border-radius:50%; background:var(--teal); color:#fff; font-family:'Zen Maru Gothic',sans-serif; font-weight:700; font-size:20px; display:flex; align-items:center; justify-content:center; flex:none; position:relative; z-index:1; }
+    .step-body { background:#fff; border-radius:16px; padding:24px 28px; margin-bottom:24px; box-shadow:0 6px 20px rgba(31,58,95,0.06); flex:1; }
+    .step-body h4 { font-size:17px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+    .step-body p { font-size:14px; line-height:1.7; color:var(--text-muted); }
+    .faq-section { background:#f0f6f5; padding:72px 0; }
+    .faq-list { margin-top:40px; display:flex; flex-direction:column; gap:14px; max-width:760px; margin-left:auto; margin-right:auto; }
+    .faq-item { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(31,58,95,0.05); }
+    .faq-q { padding:20px 24px; font-size:15px; font-weight:700; color:var(--navy); display:flex; align-items:flex-start; gap:12px; }
+    .faq-q .q-mark { flex:none; width:28px; height:28px; border-radius:50%; background:var(--teal); color:#fff; font-size:14px; font-weight:900; display:flex; align-items:center; justify-content:center; }
+    .faq-a { padding:0 24px 20px 64px; font-size:14px; line-height:1.75; color:var(--text-muted); }
+
+    /* ── REGISTRATION FORM SECTION ── */
+    .reg-section { background:linear-gradient(135deg, var(--teal) 0%, #2a7a74 100%); padding:80px 0; }
+    .reg-inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    .reg-heading .eyebrow { color:rgba(255,255,255,0.75); }
+    .reg-heading .section-heading { color:#fff; margin-top:12px; }
+    .reg-form-card { background:#fff; border-radius:22px; padding:36px; box-shadow:0 20px 50px rgba(0,0,0,0.15); }
+    .reg-field { margin-bottom:18px; }
+    .reg-field label { display:block; font-size:13px; font-weight:700; color:var(--navy); margin-bottom:7px; }
+    .reg-field label .req { color:#e05252; font-size:11px; margin-left:5px; }
+    .reg-field input, .reg-field select { width:100%; padding:11px 14px; border:1.5px solid #d0dde8; border-radius:10px; font-size:14px; font-family:'Noto Sans JP',sans-serif; color:var(--navy); background:#fff; transition:border-color 0.2s,box-shadow 0.2s; appearance:none; -webkit-appearance:none; }
+    .reg-field input:focus, .reg-field select:focus { outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(62,150,144,0.12); }
+    .reg-field input::placeholder { color:#b0bec5; }
+    .reg-hint { font-size:11px; color:var(--text-muted); margin-top:6px; line-height:1.6; }
+    .form-error { display:none; background:#fdf0f0; border:1px solid #f5c6c6; border-radius:10px; padding:12px 16px; font-size:13px; color:#c0392b; margin-bottom:16px; }
+    .form-error.show { display:block; }
+    .reg-submit { display:block; width:100%; padding:15px; border-radius:12px; border:none; font-family:'Zen Maru Gothic',sans-serif; font-size:16px; font-weight:700; cursor:pointer; transition:opacity 0.2s,transform 0.15s; margin-top:8px; }
+    .reg-submit:hover { opacity:0.88; transform:translateY(-1px); }
+    .seeker-submit { background:var(--teal); color:#fff; box-shadow:0 6px 20px rgba(62,150,144,0.35); }
+    .reg-login-hint { text-align:center; font-size:13px; color:var(--text-muted); margin-top:14px; }
+    .reg-login-hint a { color:var(--teal); font-weight:700; text-decoration:none; }
+
+    @media (max-width:860px) {
+      .seeker-hero { grid-template-columns:1fr; }
+      .seeker-hero-copy { padding:48px 24px; }
+      .seeker-hero-copy h1 { font-size:32px; }
+      .seeker-hero-photo { min-height:260px; }
+      .benefits-grid { grid-template-columns:1fr; }
+      .steps-list { padding:0 20px; }
+      .reg-inner { grid-template-columns:1fr; gap:32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="logo-mark"><span class="logo-v"></span><span class="logo-h"></span></span>
+        <span class="brand-name">メディスポット</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">サービス紹介</a>
+        <a href="register.html">新規会員登録</a>
+        <a href="login.html" class="nav-btn">ログイン</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="seeker-hero">
+    <div class="seeker-hero-copy">
+      <div class="badge">👤 求職者（医療資格者）の方へ</div>
+      <h1>あなたの資格を、<em>もっと活かせる場所へ。</em></h1>
+      <p>看護師・検査技師・リハビリ職など、医療資格をお持ちの方に特化した求人マッチング。登録は完全無料、あなたのペースで仕事探しができます。</p>
+      <div class="hero-actions" style="margin-top:32px;">
+        <a class="btn btn-primary" href="#reg-form">無料で登録する</a>
+        <a class="btn btn-soft" href="login.html">ログイン</a>
+      </div>
+    </div>
+    <div class="seeker-hero-photo">
+      <img src="medi.png" alt="医療スタッフ" onerror="this.style.display='none'">
+      <div class="photo-placeholder">
+        <div class="icon">🩺</div>
+        <p>医療スタッフ イメージ</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE STRIP -->
+  <div class="free-strip">
+    求職者の登録・利用は <span>完全無料</span> ── 採用決定後も、求職者側に費用は一切かかりません
+  </div>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="wrap">
+      <p class="eyebrow">メディスポットを選ぶ理由</p>
+      <h2 class="section-heading">医療資格者のための、医療資格者による求人サービス。</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card"><div class="num">BENEFIT 01</div><div class="icon">🎯</div><h3>医療資格に特化した求人だけ</h3><p>一般求人サイトと違い、医療資格を必要とするポジションだけを掲載。資格を活かせる職場にすぐたどり着けます。</p></div>
+        <div class="benefit-card"><div class="num">BENEFIT 02</div><div class="icon">💴</div><h3>求職者の費用はゼロ円</h3><p>登録から応募、マッチング成立まで求職者側の費用は完全無料。成功報酬は採用した医療機関のみが負担します。</p></div>
+        <div class="benefit-card"><div class="num">BENEFIT 03</div><div class="icon">🔒</div><h3>個人情報は厳重に管理</h3><p>あなたの連絡先・個人情報は、マッチング成立（医療機関側の決済完了）後まで相手に開示されません。</p></div>
+        <div class="benefit-card"><div class="num">BENEFIT 04</div><div class="icon">💬</div><h3>専用チャットで安心交渉</h3><p>マッチング後は専用チャットルームで条件交渉。契約書テンプレートも用意されているので初めての方も安心です。</p></div>
+        <div class="benefit-card"><div class="num">BENEFIT 05</div><div class="icon">🕐</div><h3>自分のペースで活動できる</h3><p>登録後すぐに求人検索ができます。非公開設定にすれば、じっくりと比較検討してから応募することも可能です。</p></div>
+        <div class="benefit-card"><div class="num">BENEFIT 06</div><div class="icon">📋</div><h3>プロフィールで自分をアピール</h3><p>資格・経験・希望条件を詳しく登録。医療機関があなたのプロフィールを見てスカウトしてくることもあります。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALIFICATIONS -->
+  <section class="qualifications">
+    <div class="wrap">
+      <p class="eyebrow">対象となる資格・職種</p>
+      <h2 class="section-heading">以下の資格・職種をお持ちの方が登録できます。</h2>
+      <div class="qual-list">
+        <div class="qual-chip"><span class="dot"></span>看護師・准看護師</div>
+        <div class="qual-chip"><span class="dot"></span>臨床検査技師</div>
+        <div class="qual-chip"><span class="dot"></span>放射線技師</div>
+        <div class="qual-chip"><span class="dot"></span>理学療法士（PT）</div>
+        <div class="qual-chip"><span class="dot"></span>作業療法士（OT）</div>
+        <div class="qual-chip"><span class="dot"></span>言語聴覚士（ST）</div>
+        <div class="qual-chip"><span class="dot"></span>介護福祉士</div>
+        <div class="qual-chip"><span class="dot"></span>ヘルパー（1・2級）</div>
+        <div class="qual-chip"><span class="dot"></span>薬剤師</div>
+        <div class="qual-chip"><span class="dot"></span>歯科衛生士</div>
+        <div class="qual-chip"><span class="dot"></span>その他医療資格者</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps-section">
+    <div class="wrap">
+      <h2 class="section-title">ご利用の流れ</h2>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-left"><div class="step-circle">1</div></div><div class="step-body"><h4>無料会員登録・プロフィール作成</h4><p>メールアドレスとパスワードで登録。保有資格・希望の働き方・条件などを入力してプロフィールを完成させましょう。1分で完了します。</p></div></div>
+        <div class="step-item"><div class="step-left"><div class="step-circle">2</div></div><div class="step-body"><h4>求人を検索・応募</h4><p>職種・雇用形態・勤務地などで絞り込み、気になる求人に応募。医療機関からのスカウトを待つこともできます。</p></div></div>
+        <div class="step-item"><div class="step-left"><div class="step-circle">3</div></div><div class="step-body"><h4>マッチング成立・条件すり合わせ</h4><p>採用決定後、専用チャットルームが開設されます。勤務条件・給与などを医療機関と直接話し合えます。</p></div></div>
+        <div class="step-item"><div class="step-left"><div class="step-circle">4</div></div><div class="step-body"><h4>契約締結・勤務開始</h4><p>提供される契約書テンプレートを使って安心して契約を締結。あとは新しい職場での活躍を楽しみに！</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="wrap">
+      <h2 class="section-title">よくある質問</h2>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span>本当に無料ですか？</div><div class="faq-a">はい、求職者の方の登録・応募・マッチングまですべて無料です。費用は採用した医療機関側のみご負担いただきます。</div></div>
+        <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span>今の職場にバレませんか？</div><div class="faq-a">プロフィールの公開・非公開はご自身で設定できます。氏名・連絡先はマッチング成立まで医療機関には開示されません。</div></div>
+        <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span>転職だけでなく、副業や非常勤でも使えますか？</div><div class="faq-a">はい。正職員・パート・非常勤・スポット勤務など、希望する雇用形態で求人を絞り込むことができます。</div></div>
+        <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span>登録後すぐに求人を見られますか？</div><div class="faq-a">はい、登録完了後すぐに求人一覧を閲覧・検索できます。気に入った求人にはそのまま応募することが可能です。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ★ REGISTRATION FORM (求職者) ★ -->
+  <section class="reg-section" id="reg-form">
+    <div class="wrap">
+      <div class="reg-inner">
+        <div class="reg-heading">
+          <p class="eyebrow">今すぐ無料登録</p>
+          <h2 class="section-heading">1分で登録完了。<br>あなたの資格を活かせる職場へ。</h2>
+          <p style="color:rgba(255,255,255,0.8);margin-top:16px;font-size:15px;line-height:1.75;">登録は完全無料。採用が決定するまで費用は一切かかりません。まずは気軽に登録してみてください。</p>
+          <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:600;">
+              <span style="background:rgba(255,255,255,0.2);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">✓</span>
+              登録・利用は完全無料
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:600;">
+              <span style="background:rgba(255,255,255,0.2);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">✓</span>
+              個人情報は成立まで非公開
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:600;">
+              <span style="background:rgba(255,255,255,0.2);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">✓</span>
+              いつでも退会・非公開可能
+            </div>
+          </div>
+        </div>
+
+        <form class="reg-form-card" id="seekerRegForm" onsubmit="return submitSeekerReg(event)">
+          <p class="form-error" id="seekerErr"></p>
+          <div class="reg-field">
+            <label>お名前<span class="req">必須</span></label>
+            <input type="text" id="sName" placeholder="例）佐藤 花子" required>
+          </div>
+          <div class="reg-field">
+            <label>保有資格（職種）<span class="req">必須</span></label>
+            <select id="sCategory">
+              <option>看護師</option><option>准看護師</option><option>保健師</option>
+              <option>助産師</option><option>臨床検査技師</option><option>診療放射線技師</option>
+              <option>理学療法士（PT）</option><option>作業療法士（OT）</option>
+              <option>言語聴覚士（ST）</option><option>薬剤師</option>
+              <option>介護福祉士・ヘルパー</option><option>その他</option>
+            </select>
+          </div>
+          <div class="reg-field">
+            <label>メールアドレス<span class="req">必須</span></label>
+            <input type="email" id="sEmail" placeholder="例）example@example.com" required>
+          </div>
+          <div class="reg-field">
+            <label>パスワード<span class="req">必須</span></label>
+            <input type="password" id="sPassword" minlength="8" placeholder="8文字以上" required>
+            <p class="reg-hint">※ プロトタイプのため、実際のパスワードは使用しないでください。</p>
+          </div>
+          <button type="submit" class="reg-submit seeker-submit">無料で求職者登録する →</button>
+          <p class="reg-login-hint">すでにアカウントをお持ちの方は <a href="login.html">ログイン</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="brand">
+        <span class="logo-mark footer-logo"><span class="logo-v"></span><span class="logo-h"></span></span>
+        <span class="brand-name light">メディスポット</span>
+      </div>
+      <p class="footer-text">
+        医療特化型広告マッチングシステム プロトタイプ V1<br>
+        <a href="#" onclick="if(typeof resetDB==='function')resetDB();return false;">デモデータを初期化</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+  <script>
+    if (typeof renderHeader === 'function') renderHeader('seeker.html');
+    if (typeof renderFooter === 'function') renderFooter();
+
+    function submitSeekerReg(e) {
+      e.preventDefault();
+      const err = document.getElementById('seekerErr');
+      err.classList.remove('show');
+      const email = document.getElementById('sEmail').value.trim();
+
+      if (typeof loadDB === 'function') {
+        const db = loadDB();
+        if (db.users.some(u => u.email === email)) {
+          err.textContent = 'このメールアドレスは既に登録されています。';
+          err.classList.add('show');
+          return false;
+        }
+        const user = {
+          id: (typeof uid === 'function') ? uid() : Date.now().toString(),
+          role: 'seeker',
+          name: document.getElementById('sName').value.trim(),
+          email,
+          password: document.getElementById('sPassword').value,
+          profile: {
+            category: document.getElementById('sCategory').value,
+            license:'', birthdate:'', experience:'',
+            skills:[], desiredType:'', zipcode:'', residence:'', pr:''
+          }
+        };
+        db.users.push(user);
+        saveDB(db);
+        if (typeof SESSION_KEY !== 'undefined') localStorage.setItem(SESSION_KEY, user.id);
+      }
+      location.href = 'seeker-home.html';
+      return false;
+    }
+  </script>
+</body>
+</html>

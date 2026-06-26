@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>医療機関の方へ | メディスポット</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="medispot.css" rel="stylesheet">
+  <style>
+    :root { --employer-accent:#1F3A5F; --employer-light:#E8F0F8; }
+    .employer-hero { display:grid; grid-template-columns:1fr 1fr; min-height:520px; }
+    .employer-hero-copy { background:var(--navy); display:flex; flex-direction:column; justify-content:center; padding:72px 64px; }
+    .employer-hero-copy .badge { display:inline-flex; align-items:center; gap:8px; background:rgba(157,213,208,0.2); color:var(--teal-light); font-size:13px; font-weight:700; letter-spacing:0.06em; padding:6px 14px; border-radius:20px; margin-bottom:24px; width:fit-content; border:1px solid rgba(157,213,208,0.3); }
+    .employer-hero-copy h1 { font-weight:900; font-size:46px; line-height:1.2; color:#fff; }
+    .employer-hero-copy h1 em { font-style:normal; color:var(--teal-light); display:block; }
+    .employer-hero-copy p { font-size:16px; line-height:1.75; color:rgba(255,255,255,0.78); margin-top:20px; max-width:400px; }
+    .employer-hero-photo { background:#c5d8d6; position:relative; overflow:hidden; }
+    .employer-hero-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .employer-hero-photo .photo-placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; color:#6a9490; }
+    .employer-hero-photo .photo-placeholder .icon { font-size:80px; line-height:1; }
+    .employer-hero-photo .photo-placeholder p { font-size:14px; font-weight:500; }
+    .fee-strip { background:var(--teal); color:#fff; text-align:center; padding:18px 40px; font-size:15px; font-weight:700; letter-spacing:0.03em; }
+    .fee-strip span { background:rgba(255,255,255,0.2); padding:2px 10px; border-radius:6px; margin:0 4px; }
+    .pain-section { background:var(--employer-light); padding:72px 0; }
+    .pain-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px; }
+    .pain-card { background:#fff; border-radius:16px; padding:28px 24px; box-shadow:0 6px 20px rgba(31,58,95,0.07); border-left:4px solid #c9d8e8; }
+    .pain-card .pain-icon { font-size:32px; margin-bottom:12px; }
+    .pain-card p { font-size:15px; font-weight:700; color:var(--navy); line-height:1.55; }
+    .pain-arrow { text-align:center; font-size:40px; padding:28px 0 8px; color:var(--teal); }
+    .pain-solve { text-align:center; font-size:22px; font-weight:700; color:var(--navy); }
+    .pain-solve span { color:var(--teal); }
+    .emp-benefits { padding:80px 0; }
+    .emp-benefits-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:48px; }
+    .emp-benefit-card { background:#fff; border-radius:22px; padding:36px 32px; box-shadow:0 10px 30px rgba(31,58,95,0.07); display:flex; gap:20px; align-items:flex-start; }
+    .emp-benefit-card .icon-box { flex:none; width:56px; height:56px; border-radius:16px; background:var(--teal-light); display:flex; align-items:center; justify-content:center; font-size:26px; }
+    .emp-benefit-card h3 { font-size:17px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+    .emp-benefit-card p { font-size:14px; line-height:1.75; color:var(--text-muted); }
+    .pricing-section { background:var(--navy); padding:80px 40px; text-align:center; color:#fff; }
+    .pricing-section .eyebrow { color:var(--teal-light); }
+    .pricing-section .section-heading { color:#fff; }
+    .pricing-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:48px; max-width:900px; margin-left:auto; margin-right:auto; }
+    .pricing-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:32px 24px; }
+    .pricing-card.highlight { background:var(--teal); border-color:var(--teal); }
+    .pricing-card .phase { font-size:12px; font-weight:700; letter-spacing:0.12em; color:var(--teal-light); margin-bottom:12px; }
+    .pricing-card.highlight .phase { color:rgba(255,255,255,0.75); }
+    .pricing-card h3 { font-size:18px; font-weight:700; color:#fff; margin-bottom:10px; }
+    .pricing-card .price-tag { font-size:28px; font-weight:900; color:#fff; margin:12px 0; }
+    .pricing-card .price-tag small { font-size:14px; font-weight:400; color:rgba(255,255,255,0.65); }
+    .pricing-card p { font-size:13px; line-height:1.7; color:rgba(255,255,255,0.65); }
+    .emp-steps { padding:80px 0; }
+    .emp-steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:48px; position:relative; }
+    .emp-steps-grid::before { content:''; position:absolute; top:36px; left:calc(16.66% + 24px); right:calc(16.66% + 24px); height:2px; background:var(--teal-light); }
+    .emp-step { text-align:center; padding:0 24px; position:relative; }
+    .emp-step-circle { width:72px; height:72px; border-radius:50%; background:var(--teal); color:#fff; font-family:'Zen Maru Gothic',sans-serif; font-weight:700; font-size:26px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; position:relative; z-index:1; }
+    .emp-step h4 { font-size:16px; font-weight:700; color:var(--navy); margin-bottom:10px; }
+    .emp-step p { font-size:13.5px; line-height:1.7; color:var(--text-muted); }
+
+    /* ── REGISTRATION FORM SECTION (employer) ── */
+    .reg-section { background:linear-gradient(135deg, #1a3352 0%, var(--navy) 100%); padding:80px 0; }
+    .reg-inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    .reg-heading .eyebrow { color:var(--teal-light); }
+    .reg-heading .section-heading { color:#fff; margin-top:12px; }
+    .reg-form-card { background:#fff; border-radius:22px; padding:36px; box-shadow:0 20px 50px rgba(0,0,0,0.2); }
+    .reg-field { margin-bottom:18px; }
+    .reg-field label { display:block; font-size:13px; font-weight:700; color:var(--navy); margin-bottom:7px; }
+    .reg-field label .req { color:#e05252; font-size:11px; margin-left:5px; }
+    .reg-field input, .reg-field select { width:100%; padding:11px 14px; border:1.5px solid #d0dde8; border-radius:10px; font-size:14px; font-family:'Noto Sans JP',sans-serif; color:var(--navy); background:#fff; transition:border-color 0.2s,box-shadow 0.2s; appearance:none; -webkit-appearance:none; }
+    .reg-field input:focus, .reg-field select:focus { outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(62,150,144,0.12); }
+    .reg-field input::placeholder { color:#b0bec5; }
+    .reg-hint { font-size:11px; color:var(--text-muted); margin-top:6px; line-height:1.6; }
+    .form-error { display:none; background:#fdf0f0; border:1px solid #f5c6c6; border-radius:10px; padding:12px 16px; font-size:13px; color:#c0392b; margin-bottom:16px; }
+    .form-error.show { display:block; }
+    .reg-submit { display:block; width:100%; padding:15px; border-radius:12px; border:none; font-family:'Zen Maru Gothic',sans-serif; font-size:16px; font-weight:700; cursor:pointer; transition:opacity 0.2s,transform 0.15s; margin-top:8px; }
+    .reg-submit:hover { opacity:0.88; transform:translateY(-1px); }
+    .employer-submit { background:var(--teal); color:#fff; box-shadow:0 6px 20px rgba(62,150,144,0.35); }
+    .reg-login-hint { text-align:center; font-size:13px; color:var(--text-muted); margin-top:14px; }
+    .reg-login-hint a { color:var(--teal); font-weight:700; text-decoration:none; }
+
+    @media (max-width:860px) {
+      .employer-hero { grid-template-columns:1fr; }
+      .employer-hero-copy { padding:48px 24px; }
+      .employer-hero-copy h1 { font-size:32px; }
+      .employer-hero-photo { min-height:260px; }
+      .pain-grid { grid-template-columns:1fr; }
+      .emp-benefits-grid { grid-template-columns:1fr; }
+      .pricing-cards { grid-template-columns:1fr; }
+      .emp-steps-grid { grid-template-columns:1fr; gap:32px; }
+      .emp-steps-grid::before { display:none; }
+      .reg-inner { grid-template-columns:1fr; gap:32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="logo-mark"><span class="logo-v"></span><span class="logo-h"></span></span>
+        <span class="brand-name">メディスポット</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">サービス紹介</a>
+        <a href="register.html">新規会員登録</a>
+        <a href="login.html" class="nav-btn">ログイン</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="employer-hero">
+    <div class="employer-hero-copy">
+      <div class="badge">🏥 医療機関の採用担当者様へ</div>
+      <h1>採用コストをゼロに、<em>成果報酬だけで採用。</em></h1>
+      <p>掲載費・月額費用は一切なし。採用が決まったときだけ、成功報酬をお支払いいただく完全成果報酬型の医療スタッフ採用サービスです。</p>
+      <div class="hero-actions" style="margin-top:32px;">
+        <a class="btn btn-primary" href="#reg-form">無料で求人掲載を始める</a>
+        <a class="btn" style="color:var(--teal-light);background:rgba(157,213,208,0.15);border:1px solid rgba(157,213,208,0.3);" href="login.html">ログイン</a>
+      </div>
+    </div>
+    <div class="employer-hero-photo">
+      <img src="medi.png" alt="医療機関" onerror="this.style.display='none'">
+      <div class="photo-placeholder">
+        <div class="icon">🏥</div>
+        <p>医療機関 イメージ</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEE STRIP -->
+  <div class="fee-strip">求人掲載<span>完全無料</span>・月額費用<span>ゼロ円</span>── 採用成功時のみ成功報酬が発生します</div>
+
+  <!-- PAIN POINTS -->
+  <section class="pain-section">
+    <div class="wrap">
+      <p class="eyebrow">こんなお悩みはありませんか？</p>
+      <h2 class="section-heading">医療機関の採用担当者が抱える、よくある課題。</h2>
+      <div class="pain-grid">
+        <div class="pain-card"><div class="pain-icon">💸</div><p>求人広告費を払ったのに、<br>応募がほとんど来ない</p></div>
+        <div class="pain-card"><div class="pain-icon">⏰</div><p>採用に時間がかかりすぎて、<br>現場が人手不足のまま</p></div>
+        <div class="pain-card"><div class="pain-icon">🔍</div><p>求める資格・スキルを<br>持つ人材に出会えない</p></div>
+      </div>
+      <div class="pain-arrow">↓</div>
+      <p class="pain-solve">メディスポットなら、<span>採用できたときだけ</span>お支払い。</p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="emp-benefits">
+    <div class="wrap">
+      <p class="eyebrow">メディスポットの特長</p>
+      <h2 class="section-heading">医療機関にとって、リスクゼロで始められる採用手段。</h2>
+      <div class="emp-benefits-grid">
+        <div class="emp-benefit-card"><div class="icon-box">🆓</div><div><h3>掲載費・月額費用は一切不要</h3><p>求人掲載は何件でも無料。採用が成立するまでは一切費用が発生しません。</p></div></div>
+        <div class="emp-benefit-card"><div class="icon-box">🎯</div><div><h3>医療資格者だけが登録している</h3><p>看護師・技師・リハビリ職など医療資格者専用のプラットフォームです。</p></div></div>
+        <div class="emp-benefit-card"><div class="icon-box">💳</div><div><h3>Stripeで安全・簡単に決済</h3><p>採用決定後はStripeによるオンライン決済で完結。手続きの手間がありません。</p></div></div>
+        <div class="emp-benefit-card"><div class="icon-box">💬</div><div><h3>専用チャットで採用後も安心</h3><p>マッチング成立後は専用チャットルームで直接やり取り。契約書テンプレートも用意。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="wrap">
+      <p class="eyebrow">料金モデル</p>
+      <h2 class="section-heading" style="color:#fff;">シンプルな完全成功報酬型。<br>採用できるまでコストゼロ。</h2>
+      <div class="pricing-cards">
+        <div class="pricing-card"><div class="phase">PHASE 1</div><h3>求人掲載</h3><div class="price-tag">¥0 <small>/ 件</small></div><p>何件でも無料で掲載。掲載期間の制限もありません。</p></div>
+        <div class="pricing-card highlight"><div class="phase">PHASE 2</div><h3>採用決定・決済</h3><div class="price-tag">成功報酬 <small>のみ</small></div><p>採用が決まったときだけStripeでお支払い。</p></div>
+        <div class="pricing-card"><div class="phase">PHASE 3</div><h3>連絡先開示・契約</h3><div class="price-tag">¥0 <small>追加</small></div><p>決済完了後に求職者の連絡先が開示されます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="emp-steps">
+    <div class="wrap">
+      <h2 class="section-title">ご利用の流れ</h2>
+      <div class="emp-steps-grid">
+        <div class="emp-step"><div class="emp-step-circle">1</div><h4>無料会員登録・求人作成</h4><p>医療機関情報を登録して求人広告を作成。掲載は無料で何件でも作成できます。</p></div>
+        <div class="emp-step"><div class="emp-step-circle">2</div><h4>応募者を選考・採用決定</h4><p>応募一覧からプロフィールを確認。気になる方を採用決定してStripeで決済します。</p></div>
+        <div class="emp-step"><div class="emp-step-circle">3</div><h4>チャットで契約・勤務開始</h4><p>決済後に連絡先が開示されます。専用チャットと契約書テンプレートで契約締結へ。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ★ REGISTRATION FORM (求人者) ★ -->
+  <section class="reg-section" id="reg-form">
+    <div class="wrap">
+      <div class="reg-inner">
+        <div class="reg-heading">
+          <p class="eyebrow">今すぐ無料登録</p>
+          <h2 class="section-heading">リスクゼロで、<br>採用を始めましょう。</h2>
+          <p style="color:rgba(255,255,255,0.75);margin-top:16px;font-size:15px;line-height:1.75;">掲載費無料・採用できたときだけお支払い。今すぐ求人を掲載できます。</p>
+          <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:600;">
+              <span style="background:rgba(157,213,208,0.25);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">✓</span>
+              求人掲載は何件でも無料
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:600;">
+              <span style="background:rgba(157,213,208,0.25);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">✓</span>
+              採用成功時のみ成功報酬
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:600;">
+              <span style="background:rgba(157,213,208,0.25);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">✓</span>
+              Stripe決済で安全・簡単
+            </div>
+          </div>
+        </div>
+
+        <form class="reg-form-card" id="employerRegForm" onsubmit="return submitEmployerReg(event)">
+          <p class="form-error" id="employerErr"></p>
+          <div class="reg-field">
+            <label>お名前（ご担当者名）<span class="req">必須</span></label>
+            <input type="text" id="eName" placeholder="例）田中 一郎" required>
+          </div>
+          <div class="reg-field">
+            <label>医療機関名<span class="req">必須</span></label>
+            <input type="text" id="eOrgName" placeholder="例）ブランチ総合クリニック" required>
+          </div>
+          <div class="reg-field">
+            <label>施設区分</label>
+            <select id="eFacility">
+              <option>病院</option>
+              <option>クリニック（無床）</option>
+              <option>クリニック（有床）</option>
+              <option>調剤薬局</option>
+              <option>介護・福祉施設</option>
+              <option>健診センター</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <div class="reg-field">
+            <label>所在地</label>
+            <input type="text" id="eAddress" placeholder="例）東京都世田谷区〇〇1-2-3">
+          </div>
+          <div class="reg-field">
+            <label>メールアドレス<span class="req">必須</span></label>
+            <input type="email" id="eEmail" placeholder="例）info@clinic.example.com" required>
+          </div>
+          <div class="reg-field">
+            <label>パスワード<span class="req">必須</span></label>
+            <input type="password" id="ePassword" minlength="8" placeholder="8文字以上" required>
+            <p class="reg-hint">※ プロトタイプのため、実際のパスワードは使用しないでください。</p>
+          </div>
+          <button type="submit" class="reg-submit employer-submit">無料で医療機関登録する →</button>
+          <p class="reg-login-hint">すでにアカウントをお持ちの方は <a href="login.html">ログイン</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="brand">
+        <span class="logo-mark footer-logo"><span class="logo-v"></span><span class="logo-h"></span></span>
+        <span class="brand-name light">メディスポット</span>
+      </div>
+      <p class="footer-text">
+        医療特化型広告マッチングシステム プロトタイプ V1<br>
+        <a href="#" onclick="if(typeof resetDB==='function')resetDB();return false;">デモデータを初期化</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+  <script>
+    if (typeof renderHeader === 'function') renderHeader('employer.html');
+    if (typeof renderFooter === 'function') renderFooter();
+
+    function submitEmployerReg(e) {
+      e.preventDefault();
+      const err = document.getElementById('employerErr');
+      err.classList.remove('show');
+      const email = document.getElementById('eEmail').value.trim();
+      const orgName = document.getElementById('eOrgName').value.trim();
+
+      if (!orgName) {
+        err.textContent = '医療機関名を入力してください。';
+        err.classList.add('show');
+        return false;
+      }
+
+      if (typeof loadDB === 'function') {
+        const db = loadDB();
+        if (db.users.some(u => u.email === email)) {
+          err.textContent = 'このメールアドレスは既に登録されています。';
+          err.classList.add('show');
+          return false;
+        }
+        const user = {
+          id: (typeof uid === 'function') ? uid() : Date.now().toString(),
+          role: 'employer',
+          name: document.getElementById('eName').value.trim(),
+          email,
+          password: document.getElementById('ePassword').value,
+          org: {
+            name: orgName,
+            facility: document.getElementById('eFacility').value,
+            address: document.getElementById('eAddress').value.trim(),
+            tel:'', intro:''
+          }
+        };
+        db.users.push(user);
+        saveDB(db);
+        if (typeof SESSION_KEY !== 'undefined') localStorage.setItem(SESSION_KEY, user.id);
+      }
+      location.href = 'employer-home.html';
+      return false;
+    }
+  </script>
+</body>
+</html>
